@@ -9,16 +9,7 @@ export const CONFIG = () => {
         DATABASE_URL:process.env.DATABASE_URL,
         JWT_SECRET:process.env.JWT_SECRET,
         PORT:process.env.PORT,
-        PAYMENT_SECRET_KEY:process.env.PAYMENT_SECRET_KEY,
-        PAYMENT_API:process.env.PAYMENT_API,
-        VTU_API_KEY:process.env.VTU_API_KEY,
-        VTU_URL:process.env.VTU_URL,
-        EMAIL:process.env.EMAIL,
-        PASSWORD:process.env.PASSWORD,
-        REFRESH_TOKEN:process.env.REFRESH_TOKEN,
-        ACCESS_TOKEN:process.env.ACCESS_TOKEN,
-        CLIENT_ID:process.env.CLIENT_ID,
-        CLIENT_SECRET:process.env.CLIENT_SECRET
+        BASE_URL:process.env.BASE_URL
     }
 
 }

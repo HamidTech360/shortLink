@@ -4,11 +4,7 @@ import mongoose from 'mongoose'
 import cors from 'cors'
 import {CONFIG}  from './config/index'
 const config = CONFIG()
-import user from './routes/user.route'
-import Payment from './routes/payment.route'
-import VTU from './routes/vtu.route'
-import Review from './routes/review.route'
-import Admin from './routes/admin.route'
+import url from './routes/url.route'
 
 
 
@@ -25,10 +21,7 @@ mongoose.connect(config.DATABASE_URL as string)
 
 app.use(cors())
 app.use(express.json())
-app.use('/api/user', user)
-app.use('/api/pay', Payment)
-app.use('/api/vtu', VTU )
-app.use('/api/review', Review )
-app.use('/api/admin', Admin )
+app.use('/api', url)
+
 
 app.listen(config.PORT, ()=>console.log(`Listening to port ${config.PORT}`))
