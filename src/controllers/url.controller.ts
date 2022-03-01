@@ -16,21 +16,20 @@ export const EncodeURL = async (req:any, res:any, next:any)=>{
         const url = await UrlModel.findOne({originalUrl}) //checks if the URL has alredy been shortened
      
         if(url){
-            //implement the number of clicks algorithm right here
 
-           url.clicks++
-           url.save()
-           
-            res.json({
+            return res.json({
                status:'success',
                message:'URL fetched successfully',
                data:{
                    shortUrl:url.shortUrl,
                    originalUrl:url.originalUrl,
-                   urlId:url.urlId
+                   urlId:url.urlId,
+                   clicks:url.clicks,
+                    dateCreated: moment(url.createdAt).format('LLL'),
+                    lastVisited: moment(url.updatedAt).format('LLL')
                }
            }) 
-           //return res.redirect(url.originalUrl)
+           
         }
 
       const shortUrl = `${config.BASE_URL}/${urlId}` 
@@ -40,18 +39,21 @@ export const EncodeURL = async (req:any, res:any, next:any)=>{
           urlId
       }) 
 
-      await newUrl.save()
+      const saveResp = await newUrl.save()
 
       res.json({
           status:'success',
           message:'URL saved successfully',
           data:{
-            shortUrl:newUrl.shortUrl,
-            originalUrl:newUrl.originalUrl,
-            urlId:newUrl.urlId
+            shortUrl:saveResp.shortUrl,
+            originalUrl:saveResp.originalUrl,
+            urlId:saveResp.urlId,
+            clicks:saveResp.clicks,
+            dateCreated: moment(saveResp.createdAt).format('LLL'),
+            lastVisited: moment(saveResp.updatedAt).format('LLL')
           }
       })
-      res.redirect(url.originalUrl)
+     
 
     }catch(err){
         res.status(500).send('Server Error')
@@ -62,7 +64,7 @@ export const EncodeURL = async (req:any, res:any, next:any)=>{
 export const DecodeURL = async (req:any, res:any, next:any)=>{
     
     const {shortUrl} = req.body
-    if(!validateUrl(shortUrl)) return res.status(400).send('Invalid Url supplied')
+    // if(!validateUrl(shortUrl)) return res.status(400).send('Invalid Url supplied')
 
     const url = await UrlModel.findOne({shortUrl})
     if(!url) return res.status(400).send(`URL doesn't exist on our server`)
@@ -75,6 +77,20 @@ export const DecodeURL = async (req:any, res:any, next:any)=>{
         }
     })
 
+}
+
+export const loadURL = async (req:any, res:any, next:any)=>{
+    try{
+        const url = await UrlModel.findOne({urlId:req.params.urlId})
+        if(!url) return res.status(404).send('URL not found')
+
+        url.clicks++
+        url.save()
+        return res.redirect(url.originalUrl)
+
+    }catch(ex){
+        res.status(500).send('Server Error')
+    }
 }
 
 export const URLStatisctics = async (req:any, res:any, next:any)=>{

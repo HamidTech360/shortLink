@@ -15,13 +15,14 @@ if(!config.JWT_SECRET){
 
 
 
+
 mongoose.connect(config.DATABASE_URL as string)
 .then(()=>console.log('connection established'))
 .catch(()=>console.log('Failed to establish connection'))
 
 app.use(cors())
 app.use(express.json())
-app.use('/api', url)
+app.use('/url', url)
 
 
 app.listen(config.PORT, ()=>console.log(`Listening to port ${config.PORT}`))
