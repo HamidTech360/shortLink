@@ -20,7 +20,8 @@ export const EncodeURL = async (req:any, res:any, next:any)=>{
 
            url.clicks++
            url.save()
-           return res.json({
+           
+            res.json({
                status:'success',
                message:'URL fetched successfully',
                data:{
@@ -29,6 +30,7 @@ export const EncodeURL = async (req:any, res:any, next:any)=>{
                    urlId:url.urlId
                }
            }) 
+           //return res.redirect(url.originalUrl)
         }
 
       const shortUrl = `${config.BASE_URL}/${urlId}` 
@@ -39,6 +41,7 @@ export const EncodeURL = async (req:any, res:any, next:any)=>{
       }) 
 
       await newUrl.save()
+
       res.json({
           status:'success',
           message:'URL saved successfully',
@@ -48,6 +51,7 @@ export const EncodeURL = async (req:any, res:any, next:any)=>{
             urlId:newUrl.urlId
           }
       })
+      res.redirect(url.originalUrl)
 
     }catch(err){
         res.status(500).send('Server Error')
