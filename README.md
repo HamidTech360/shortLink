@@ -11,7 +11,6 @@ When a user sends a POST request to encode endpoint, the URL will be searched wi
 ⭐ Mongoose
 ⭐ Express
 ⭐ Shortid
-⭐ React
 ⭐ Git
 
 ## Available Scripts
