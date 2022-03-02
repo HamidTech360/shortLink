@@ -67,7 +67,7 @@ export const DecodeURL = async (req:any, res:any, next:any)=>{
     // if(!validateUrl(shortUrl)) return res.status(400).send('Invalid Url supplied')
 
     const url = await UrlModel.findOne({shortUrl})
-    if(!url) return res.status(400).send(`URL doesn't exist on our server`)
+    if(!url) return res.status(404).send(`URL doesn't exist on our server`)
 
     res.json({
         status:'success',

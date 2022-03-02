@@ -14,15 +14,22 @@ if(!config.JWT_SECRET){
 }
 
 
+if(process.env.NODE_ENV==="test"){
+    mongoose.connect(`mongodb://localhost/urlShortener_test`)
+    .then(()=>console.log('connection established'))
+    .catch(()=>console.log('Failed to establish connection'))
+}else{
+    mongoose.connect(config.DATABASE_URL as string)
+    .then(()=>console.log(`connection established: ${config.DATABASE_URL}`))
+    .catch(()=>console.log('Failed to establish connection'))
+}
 
 
-mongoose.connect(config.DATABASE_URL as string)
-.then(()=>console.log('connection established'))
-.catch(()=>console.log('Failed to establish connection'))
 
 app.use(cors())
 app.use(express.json())
 app.use('/url', url)
 
 
-app.listen(config.PORT, ()=>console.log(`Listening to port ${config.PORT}`))
+const server = app.listen(config.PORT, ()=>console.log(`Listening to port ${config.PORT}`))
+export default server 
