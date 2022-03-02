@@ -20,12 +20,17 @@ In the project directory, you can run:
 ### `npm run dev`
 
 Runs the app in the development mode.\
+Open [http://localhost:4000](http://localhost:4000) to run the API.
+
+### `npm run test`
+
+Runs the app in the test mode.\
 Open [http://localhost:4000](http://localhost:4000) to test the API.
 
 ### `npm run start`
 
 Runs the app in the production mode.\
-Open [http://localhost:4000](http://localhost:4000) to test the API.
+Open [https://damp-stream-12094.herokuapp.com/url](https://damp-stream-12094.herokuapp.com/url) to test the API.
 
 ## `Documentation Link`
 Open [https://documenter.getpostman.com/view/18779430/UVksKYjA](https://documenter.getpostman.com/view/18779430/UVksKYjA) to view the API documentation.
